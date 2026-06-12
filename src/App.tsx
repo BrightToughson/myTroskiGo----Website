@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import { Bus, Map, Smartphone, Menu, X } from 'lucide-react';
+import logoImg from '../public/images/logo/mytroskigo.png';
 
 export default function App() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
@@ -26,7 +27,7 @@ export default function App() {
       <header className="header">
         <div className="header-inner">
           <div className="logo-container">
-            <img src="/images/logo/mytroskigo.png" alt="Logo" className="logo-img" />
+            <img src={logoImg} alt="Logo" className="logo-img" />
             <span className="logo-text">myTroski Go</span>
           </div>
 
@@ -159,7 +160,7 @@ export default function App() {
         <div className="footer-inner">
           <div className="footer-brand">
             <div className="footer-logo">
-              <img src="/images/logo/mytroskigo.png" alt="Logo" />
+              <img src={logoImg} alt="Logo" />
               <span>myTroski Go</span>
             </div>
             <p className="footer-desc">Crowdsourced transit data for Ghana. Know your fare, skip the queue, and never get overcharged again.</p>
