@@ -140,9 +140,8 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   z-index: -2;
-  opacity: 0.15; /* Make it subtle like a watermark */
-  mix-blend-mode: luminosity; /* Blend it nicely with the dark background */
-  filter: blur(2px) grayscale(50%); /* Soften the image */
+  opacity: 0.6; /* Let it be clearly visible but darkened by the overlay */
+  filter: brightness(0.7);
 }
 
 .hero-overlay {
@@ -151,7 +150,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, transparent 0%, #030712 100%), linear-gradient(to right, #030712 0%, rgba(3, 7, 18, 0.4) 50%, #030712 100%);
+  background: radial-gradient(circle at center, transparent 0%, rgba(3, 7, 18, 0.8) 100%), linear-gradient(to bottom, rgba(3, 7, 18, 0.3) 0%, rgba(3, 7, 18, 0.8) 100%);
   z-index: -1;
 }
 /* Fade bottom edge into background color */
@@ -168,20 +167,26 @@ body {
 
 /* HERO */
 .hero {
-  max-width: 1200px;
+  max-width: 1000px; /* Narrower for centered layout */
   margin: 0 auto;
   width: 100%;
   padding: 40px 24px 80px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 40px;
 }
 
+.centered-hero {
+  text-align: center;
+}
+
 .hero-content {
-  flex: 1;
-  max-width: 600px;
-  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pulse-badge-hero {
@@ -204,23 +209,31 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(48px, 6vw, 72px);
+  font-size: clamp(60px, 10vw, 120px);
   font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -2px;
-  margin-bottom: 24px;
+  line-height: 1.0;
+  letter-spacing: -3px;
+  margin-bottom: 32px;
   color: #F9FAFB;
+  text-transform: capitalize;
 }
 
 .text-yellow {
   color: #FBBF24;
 }
 
+.underlined-green {
+  border-bottom: 8px solid #4ade80; /* Green underline */
+  padding-bottom: 4px;
+}
+
 .hero-subtitle {
-  font-size: clamp(16px, 3vw, 18px);
-  color: #D1D5DB;
+  font-size: clamp(18px, 4vw, 24px);
+  color: #F9FAFB;
   margin-bottom: 40px;
   line-height: 1.6;
+  max-width: 800px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .hero-buttons {
@@ -242,47 +255,9 @@ body {
   opacity: 0.8;
 }
 
-.hero-mockup {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  position: relative;
-  perspective: 1000px;
-}
-
-.mockup-img {
-  max-width: 320px;
-  width: 100%;
-  height: auto;
-  transform: rotateY(-15deg) rotateX(5deg) scale(1.1);
-  filter: drop-shadow(-20px 20px 30px rgba(0,0,0,0.5));
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: rotateY(-15deg) rotateX(5deg) scale(1.1) translateY(0px); }
-  50% { transform: rotateY(-15deg) rotateX(5deg) scale(1.1) translateY(-15px); }
-  100% { transform: rotateY(-15deg) rotateX(5deg) scale(1.1) translateY(0px); }
-}
-
 @media (max-width: 900px) {
-  .hero {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-content {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-  }
   .hero-overlay {
-    background: linear-gradient(to bottom, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.8) 100%);
-  }
-  .mockup-img {
-    transform: scale(1);
-    max-width: 250px;
-    margin-top: 40px;
+    background: linear-gradient(to bottom, rgba(3, 7, 18, 0.8) 0%, rgba(3, 7, 18, 0.9) 100%);
   }
 }
 

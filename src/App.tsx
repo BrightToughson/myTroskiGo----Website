@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import { Bus, Map, Smartphone, Menu, X } from 'lucide-react';
-import logoImg from '../public/images/logo/mytroskigo.png';
-import heroBg from '../public/images/logo/mytroski_background.png';
-import phoneMockup from '../public/images/logo/mytroski_display.png';
+import logoImg from './images/logo/mytroskigo.png';
+import heroBg from './images/logo/mytroski_background.png';
 
 export default function App() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
@@ -55,26 +54,20 @@ export default function App() {
       <div className="hero-wrapper">
         <div className="hero-bg" style={{ backgroundImage: `url(${heroBg})` }}></div>
         <div className="hero-overlay"></div>
-        <section className="hero">
-          <div className="hero-content">
+        <section className="hero centered-hero">
+          <div className="hero-content text-center">
             <div className="pulse-badge-hero">
               <div className="pulse-dot-hero"></div>
               <span>ACCRA LIVE UPDATES</span>
             </div>
-            <h1 className="hero-title">Know Your<br/><span className="text-yellow">Fare.</span><br/>Skip the<br/><span className="text-yellow">Queue.</span></h1>
+            <h1 className="hero-title">
+              Know Your<br/>
+              <span className="text-yellow underlined-green">Fare.</span><br/>
+              Skip the<br/>
+              <span className="text-yellow underlined-green">Queue.</span>
+            </h1>
             <p className="hero-subtitle">Live fares, instant queue alerts, station updates — crowdsourced by commuters like you. Save time, skip the long queues, avoid overcharges.</p>
-            <div className="hero-buttons">
-              <button className="btn-primary large flex-btn" onClick={onDownloadApk}>
-                GET DIRECT
-                <span>Android APK</span>
-              </button>
-            </div>
           </div>
-          {isDesktop && (
-            <div className="hero-mockup">
-              <img src={phoneMockup} alt="myTroski Go App Interface" className="mockup-img" />
-            </div>
-          )}
         </section>
       </div>
 
