@@ -26,7 +26,7 @@ export default function App() {
       <header className="header">
         <div className="header-inner">
           <div className="logo-container">
-            <img src="/assets/logo/mytroskigo.png" alt="Logo" className="logo-img" />
+            <img src="/images/logo/mytroskigo.png" alt="Logo" className="logo-img" />
             <span className="logo-text">myTroski Go</span>
           </div>
 
@@ -159,7 +159,7 @@ export default function App() {
         <div className="footer-inner">
           <div className="footer-brand">
             <div className="footer-logo">
-              <img src="/assets/logo/mytroskigo.png" alt="Logo" />
+              <img src="/images/logo/mytroskigo.png" alt="Logo" />
               <span>myTroski Go</span>
             </div>
             <p className="footer-desc">Crowdsourced transit data for Ghana. Know your fare, skip the queue, and never get overcharged again.</p>
