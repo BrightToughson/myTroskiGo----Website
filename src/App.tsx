@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import { Bus, Map, Smartphone, Menu, X } from 'lucide-react';
-import logoImg from '../public/images/logo/mytroskigo.png';
-import heroBg from '../public/images/logo/mytroski_background.png';
+import logoImg from './images/logo/mytroskigo.png';
+import heroBg from './images/logo/mytroski_background.png';
 
 export default function App() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
