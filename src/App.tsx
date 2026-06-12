@@ -13,7 +13,7 @@ export default function App() {
   }, []);
 
   const onStartApp = () => {
-    window.location.href = 'https://app.mytroskigo.com';
+    window.location.href = 'https://mytroski-go.vercel.app';
   };
 
   const onDownloadApk = () => {
