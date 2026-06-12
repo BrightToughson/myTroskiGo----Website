@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import { Bus, Map, Smartphone, Menu, X } from 'lucide-react';
 import logoImg from '../public/images/logo/mytroskigo.png';
+import heroBg from '../public/images/logo/mytroski_background.png';
+import phoneMockup from '../public/images/logo/mytroski_display.png';
 
 export default function App() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
@@ -50,16 +52,31 @@ export default function App() {
       </header>
 
       {/* HERO SECTION */}
-      <section className="hero">
-        <div className="hero-content">
-          <h1 className="hero-title">Skip the queue.<br/>Know your fare.</h1>
-          <p className="hero-subtitle">The ultimate crowdsourced transit companion for trotro and okada riders in Ghana.</p>
-          <div className="hero-buttons">
-            <button className="btn-primary large" onClick={onStartApp}>Launch Web App</button>
-            <button className="btn-outline large" onClick={onDownloadApk}>Download APK</button>
+      <div className="hero-wrapper">
+        <div className="hero-bg" style={{ backgroundImage: `url(${heroBg})` }}></div>
+        <div className="hero-overlay"></div>
+        <section className="hero">
+          <div className="hero-content">
+            <div className="pulse-badge-hero">
+              <div className="pulse-dot-hero"></div>
+              <span>ACCRA LIVE UPDATES</span>
+            </div>
+            <h1 className="hero-title">Know Your<br/><span className="text-yellow">Fare.</span><br/>Skip the<br/><span className="text-yellow">Queue.</span></h1>
+            <p className="hero-subtitle">Live fares, instant queue alerts, station updates — crowdsourced by commuters like you. Save time, skip the long queues, avoid overcharges.</p>
+            <div className="hero-buttons">
+              <button className="btn-primary large flex-btn" onClick={onDownloadApk}>
+                GET DIRECT
+                <span>Android APK</span>
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
+          {isDesktop && (
+            <div className="hero-mockup">
+              <img src={phoneMockup} alt="myTroski Go App Interface" className="mockup-img" />
+            </div>
+          )}
+        </section>
+      </div>
 
       {/* CITY PULSE NEWS */}
       <div className="city-pulse">
