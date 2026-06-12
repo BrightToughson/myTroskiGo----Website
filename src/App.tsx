@@ -97,7 +97,7 @@ export default function App() {
   }, []);
 
   const onStartApp = () => {
-    window.location.href = import.meta.env.DEV ? 'http://localhost:8081' : 'https://trotro-app-my-troski-go.vercel.app';
+    window.location.href = import.meta.env.DEV ? 'http://localhost:8081' : 'https://app.mytroski-go.online';
   };
 
   const onDownloadApk = () => {
