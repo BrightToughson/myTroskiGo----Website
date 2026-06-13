@@ -499,8 +499,8 @@ body {
 .light-search-box {
   background: #FFF;
   border: 1px solid #E2E8F0;
-  border-radius: 16px;
-  padding: 12px;
+  border-radius: 14px;
+  padding: 10px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -518,7 +518,7 @@ body {
 }
 
 .light-search-text h4 {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 800;
   color: #0F172A;
   margin-bottom: 2px;
@@ -532,23 +532,23 @@ body {
 }
 
 .light-section {
-  padding: 0 20px 20px;
+  padding: 0 16px 16px;
 }
 
 .light-section-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 800;
   color: #0F172A;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .light-empty-box {
   border: 1px dashed #CBD5E1;
   background: #F8FAFC;
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 14px;
+  padding: 16px;
   text-align: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .light-empty-box p {
@@ -559,8 +559,8 @@ body {
 .light-alert-box {
   background: #E0E7FF;
   border: 1px solid #BFDBFE;
-  border-radius: 16px;
-  padding: 16px;
+  border-radius: 14px;
+  padding: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
