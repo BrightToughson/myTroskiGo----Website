@@ -35,7 +35,7 @@ export default function App() {
   };
 
   const onDownloadApk = () => {
-    window.open('https://expo.dev/artifacts/eas/PdmETQdkqhniYTf9zvRWRxXUqZ3ltzEgGFQ0zGuSHYE.apk', '_blank');
+    window.open('https://github.com/BrightToughson/myTroskiGo----Website/releases/latest/download/mytroskigo.apk', '_blank');
   };
 
   return (
