@@ -91,6 +91,8 @@ export default function App() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showIOSModal, setShowIOSModal] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const [comingSoonFeature, setComingSoonFeature] = useState('');
   const [pulseIndex, setPulseIndex] = useState(0);
   const [pulseNews, setPulseNews] = useState([
@@ -137,6 +139,19 @@ export default function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    const fadeTimer = setTimeout(() => {
+      setIsFadingOut(true);
+    }, 1500);
+    const hideTimer = setTimeout(() => {
+      setShowSplash(false);
+    }, 2000);
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
+
   const onStartApp = () => {
     window.location.href = import.meta.env.DEV ? 'http://localhost:8081' : 'https://app.mytroski-go.online';
   };
@@ -147,6 +162,16 @@ export default function App() {
 
   return (
     <div className="page-container">
+      {/* SPLASH SCREEN */}
+      {showSplash && (
+        <div className={`splash-screen ${isFadingOut ? 'fade-out' : ''}`}>
+          <div className="splash-content">
+            <img src={logoImg} alt="myTroski Go Logo" className="splash-logo" />
+            <div className="splash-loader"></div>
+          </div>
+        </div>
+      )}
+
       {/* HEADER */}
       <header className="header">
         <div className="header-inner">
