@@ -91,6 +91,7 @@ export default function App() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
   const [menuOpen, setMenuOpen] = useState(false);
   const [showIOSModal, setShowIOSModal] = useState(false);
+  const [comingSoonFeature, setComingSoonFeature] = useState('');
   const [pulseIndex, setPulseIndex] = useState(0);
   const [pulseNews, setPulseNews] = useState([
     { type: 'LIVE UPDATE', text: 'Heavy traffic building at Kaneshie due to roadworks. Delay ~25 mins.', typeColor: '#EF4444', url: '' },
@@ -156,8 +157,8 @@ export default function App() {
 
           {isDesktop ? (
             <nav className="nav-links">
-              <span className="nav-link">Trotro Fares</span>
-              <span className="nav-link">Community</span>
+              <span className="nav-link" onClick={() => setComingSoonFeature('Trotro Fares Directory')}>Trotro Fares</span>
+              <span className="nav-link" onClick={() => setComingSoonFeature('Community Hub')}>Community</span>
               <span className="nav-link" onClick={onDownloadApk} style={{cursor: 'pointer'}}>Download</span>
             </nav>
           ) : (
@@ -176,8 +177,8 @@ export default function App() {
       {!isDesktop && menuOpen && (
         <div className="mobile-menu">
           <nav className="mobile-nav-links">
-            <span className="mobile-nav-link" onClick={() => setMenuOpen(false)}>Trotro Fares</span>
-            <span className="mobile-nav-link" onClick={() => setMenuOpen(false)}>Community</span>
+            <span className="mobile-nav-link" onClick={() => { setComingSoonFeature('Trotro Fares Directory'); setMenuOpen(false); }}>Trotro Fares</span>
+            <span className="mobile-nav-link" onClick={() => { setComingSoonFeature('Community Hub'); setMenuOpen(false); }}>Community</span>
             <span className="mobile-nav-link" onClick={() => { onDownloadApk(); setMenuOpen(false); }}>Download</span>
             <button className="btn-primary large" style={{marginTop: '20px'}} onClick={() => { onStartApp(); setMenuOpen(false); }}>Start App</button>
           </nav>
@@ -367,7 +368,7 @@ export default function App() {
         </div>
       </footer>
 
-      {/* iOS Install Modal */}
+      {/* IOS INSTALL MODAL */}
       {showIOSModal && (
         <div className="modal-overlay" onClick={() => setShowIOSModal(false)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -381,6 +382,25 @@ export default function App() {
               <p><strong>3.</strong> Scroll down and select <strong>Add to Home Screen</strong> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign: 'middle', display: 'inline'}}><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>.</p>
             </div>
             <button className="btn-primary w-full" style={{marginTop: '20px'}} onClick={onStartApp}>Go to Web App</button>
+          </div>
+        </div>
+      )}
+
+      {/* COMING SOON MODAL */}
+      {comingSoonFeature && (
+        <div className="modal-overlay" onClick={() => setComingSoonFeature('')}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setComingSoonFeature('')}>
+              <X size={24} color="#64748B" />
+            </button>
+            <h3 className="modal-title">Coming Soon! 🚀</h3>
+            <div className="modal-steps">
+              <p style={{marginBottom: '10px'}}>The <strong>{comingSoonFeature}</strong> is currently being optimized for the web.</p>
+              <p>For now, you can access all features, live fares, and community updates directly inside the myTroski Go App.</p>
+            </div>
+            <button className="btn-primary w-full" style={{marginTop: '20px'}} onClick={() => { setComingSoonFeature(''); onStartApp(); }}>
+              Launch Web App
+            </button>
           </div>
         </div>
       )}
