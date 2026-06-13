@@ -106,3 +106,14 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.footer-link {
+  text-decoration: none;
+  color: #9CA3AF;
+  display: block;
+  margin-bottom: 0.8rem;
+  transition: color 0.3s;
+}
+.footer-link:hover {
+  color: #3B82F6;
+}
