@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import { Bus, Map, Smartphone, Menu, X, Search, User, ChevronRight, Home, Bell, Clock, MessageSquare, Heart } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import logoImg from './images/mytroskigo.png';
 import heroBg from './images/mytroski_background.jpg';
 import { supabase } from './supabaseClient';
@@ -142,10 +143,10 @@ export default function App() {
   useEffect(() => {
     const fadeTimer = setTimeout(() => {
       setIsFadingOut(true);
-    }, 1500);
+    }, 4500);
     const hideTimer = setTimeout(() => {
       setShowSplash(false);
-    }, 2000);
+    }, 5000);
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(hideTimer);
@@ -214,7 +215,12 @@ export default function App() {
       <section className="hero" style={{ backgroundImage: `url(${heroBg})` }}>
         <div className="hero-overlay"></div>
         <div className="hero-content">
-          <div className="hero-text-content">
+          <motion.div 
+            className="hero-text-content"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <div className="hero-badge">
               <div className="hero-badge-dot"></div>
               <span>THE SMARTER WAY TO RIDE 🚀</span>
@@ -245,25 +251,55 @@ export default function App() {
             <div className="hero-buttons" style={{marginTop: '20px'}}>
                <button className="btn-primary large" onClick={onStartApp}>Get Started</button>
             </div>
-          </div>
-          <div className="hero-image-content">
-            <PhoneMockup />
-          </div>
+          </motion.div>
+          <motion.div 
+            className="hero-image-content"
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          >
+            <motion.div
+              animate={{ y: -20 }}
+              transition={{ 
+                repeat: Infinity, 
+                repeatType: "reverse", 
+                duration: 2.5, 
+                ease: "easeInOut" 
+              }}
+            >
+              <PhoneMockup />
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* CITY PULSE NEWS */}
       <div className="city-pulse">
-        <div className="pulse-inner">
+        <motion.div 
+          className="pulse-inner"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="pulse-badge">
             <div className="pulse-dot"></div>
             <span>CITY PULSE</span>
           </div>
           <div className="pulse-divider"></div>
-          <p className="pulse-headline" key={pulseIndex}>
-            <span className="pulse-update" style={{ color: pulseNews[pulseIndex].typeColor }}>{pulseNews[pulseIndex].type}: </span>
-            {pulseNews[pulseIndex].text}
-          </p>
+          <AnimatePresence mode="wait">
+            <motion.p 
+              className="pulse-headline" 
+              key={pulseIndex}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <span className="pulse-update" style={{ color: pulseNews[pulseIndex].typeColor }}>{pulseNews[pulseIndex].type}: </span>
+              {pulseNews[pulseIndex].text}
+            </motion.p>
+          </AnimatePresence>
           <button 
             className="pulse-read-more"
             onClick={() => {
@@ -277,85 +313,127 @@ export default function App() {
           >
             Read more →
           </button>
-        </div>
+        </motion.div>
       </div>
 
       {/* STATS BENTO GRID */}
       <section className="section">
-        <div className="bento-grid">
-          <div className="bento-card span-2 dark-card">
+        <motion.div 
+          className="bento-grid"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.15 }
+            }
+          }}
+        >
+          <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} whileHover={{ scale: 1.02, y: -5 }} className="bento-card span-2 dark-card">
             <Map size={48} color="#FBBF24" />
             <h3 className="bento-title">Multi-Hop Routes</h3>
             <p className="bento-desc">Calculate combined fares for trips requiring multiple connections across the city.</p>
-          </div>
-          <div className="bento-card gold-card">
+          </motion.div>
+          <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} whileHover={{ scale: 1.02, y: -5 }} className="bento-card gold-card">
             <Bus size={32} color="#111827" />
             <h3 className="bento-title text-dark">500+</h3>
             <p className="bento-desc text-dark">Active Routes</p>
-          </div>
-          <div className="bento-card outline-card">
+          </motion.div>
+          <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} whileHover={{ scale: 1.02, y: -5 }} className="bento-card outline-card">
             <Smartphone size={32} color="#F9FAFB" />
             <h3 className="bento-title">Trotro</h3>
             <p className="bento-desc">Standard Fares</p>
-          </div>
-          <div className="bento-card dark-card">
+          </motion.div>
+          <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} whileHover={{ scale: 1.02, y: -5 }} className="bento-card dark-card">
             <h3 className="bento-title">Live</h3>
             <p className="bento-desc">Activity Map</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* GAMIFICATION */}
       <section className="section bg-darker">
         <div className="gamification-card">
-          <div className="g-content">
+          <motion.div 
+            className="g-content"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+          >
             <h2 className="g-title">Report & Earn Points</h2>
             <p className="g-desc">Help the community by reporting traffic, fare changes, and long queues. Earn points and unlock badges!</p>
             <div className="badge-row">
               <span className="badge gold">🏆 Commuter Hero</span>
               <span className="badge silver">⭐ Active Scout</span>
             </div>
-          </div>
-          <div className="g-mockup">
+          </motion.div>
+          <motion.div 
+            className="g-mockup"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <div className="mockup-alert">
               <span className="alert-pts">+50 pts</span>
               <span>Kaneshie traffic reported!</span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* HOW IT WORKS */}
       <section className="section">
         <h2 className="section-title">How It Works</h2>
-        <div className="steps-grid">
-          <div className="step-card">
+        <motion.div 
+          className="steps-grid"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.2 }
+            }
+          }}
+        >
+          <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} whileHover={{ scale: 1.05, y: -5 }} className="step-card">
             <div className="step-badge">1</div>
             <h3 className="step-title">Search Route</h3>
             <p className="step-desc">Enter your starting point and destination to find the best available routes.</p>
-          </div>
-          <div className="step-card">
+          </motion.div>
+          <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} whileHover={{ scale: 1.05, y: -5 }} className="step-card">
             <div className="step-badge">2</div>
             <h3 className="step-title">Check Fares</h3>
             <p className="step-desc">See the exact crowdsourced fare so you never get overcharged.</p>
-          </div>
-          <div className="step-card">
+          </motion.div>
+          <motion.div variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }} whileHover={{ scale: 1.05, y: -5 }} className="step-card">
             <div className="step-badge">3</div>
             <h3 className="step-title">Move Smart</h3>
             <p className="step-desc">Check the live pulse map for traffic or queue updates before you head out.</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* CTA BANNER */}
       <section className="section">
-        <div className="cta-banner">
+        <motion.div 
+          className="cta-banner"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: false, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
+        >
           <div>
             <h2 className="cta-title">Ready to Move?</h2>
             <p className="cta-subtitle">Join 10,000+ Ghanaians moving smart. Launch myTroski Go today and forget transport stress.</p>
           </div>
           <button className="btn-dark" onClick={onStartApp}>Launch Web App →</button>
-        </div>
+        </motion.div>
       </section>
 
       {/* FOOTER */}
