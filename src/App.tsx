@@ -193,7 +193,7 @@ export default function App() {
           )}
 
           {isDesktop && (
-            <button className="btn-primary" onClick={onStartApp}>Start App</button>
+            <button className="btn-primary" onClick={onStartApp}>Get Started</button>
           )}
         </div>
       </header>
@@ -205,7 +205,7 @@ export default function App() {
             <span className="mobile-nav-link" onClick={() => { setComingSoonFeature('Trotro Fares Directory'); setMenuOpen(false); }}>Trotro Fares</span>
             <span className="mobile-nav-link" onClick={() => { setComingSoonFeature('Community Hub'); setMenuOpen(false); }}>Community</span>
             <span className="mobile-nav-link" onClick={() => { onDownloadApk(); setMenuOpen(false); }}>Download</span>
-            <button className="btn-primary large" style={{marginTop: '20px'}} onClick={() => { onStartApp(); setMenuOpen(false); }}>Start App</button>
+            <button className="btn-primary large" style={{marginTop: '20px'}} onClick={() => { onStartApp(); setMenuOpen(false); }}>Get Started</button>
           </nav>
         </div>
       )}
@@ -243,7 +243,7 @@ export default function App() {
               </button>
             </div>
             <div className="hero-buttons" style={{marginTop: '20px'}}>
-               <button className="btn-primary large" onClick={onStartApp}>Launch Web App</button>
+               <button className="btn-primary large" onClick={onStartApp}>Get Started</button>
             </div>
           </div>
           <div className="hero-image-content">
