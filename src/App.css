@@ -72,6 +72,38 @@ body {
 }
 .nav-link:hover { color: #FBBF24; }
 
+/* MOBILE MENU */
+.mobile-menu {
+  position: fixed;
+  top: 73px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #030712;
+  z-index: 40;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mobile-nav-link {
+  font-size: 20px;
+  font-weight: 700;
+  color: #F9FAFB;
+  cursor: pointer;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #1F2937;
+}
+
+.mobile-nav-link:hover { color: #FBBF24; }
+
 .icon-btn {
   background: none;
   border: none;
@@ -638,7 +670,13 @@ body {
 @keyframes pulse { from { opacity: 0.3; } to { opacity: 1; } }
 
 .pulse-divider { width: 1px; height: 24px; background: #374151; }
-.pulse-headline { flex: 1; font-size: 15px; color: #F9FAFB; }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pulse-headline { flex: 1; font-size: 15px; color: #F9FAFB; animation: fadeSlideUp 0.5s ease-out; }
 .pulse-update { color: #EF4444; font-weight: 900; }
 .pulse-read-more { background: rgba(59, 130, 246, 0.1); color: #3B82F6; border: none; padding: 6px 16px; border-radius: 20px; font-weight: 800; cursor: pointer; }
 
@@ -702,3 +740,46 @@ body {
 .link-col p:hover { color: #FBBF24; }
 
 .footer-bottom { max-width: 1200px; margin: 64px auto 0; padding-top: 32px; border-top: 1px solid #1F2937; text-align: center; color: #6B7280; font-size: 13px; }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(3, 7, 18, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal-content {
+  background: #111827;
+  border: 1px solid #1F2937;
+  border-radius: 24px;
+  padding: 32px;
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: none; border: none; cursor: pointer;
+  padding: 8px; border-radius: 50%;
+  transition: background 0.2s;
+}
+.modal-close:hover { background: #1F2937; }
+
+.modal-title {
+  font-size: 24px; font-weight: 800; margin-bottom: 24px; color: #F9FAFB;
+}
+
+.modal-steps p {
+  font-size: 15px; color: #D1D5DB; margin-bottom: 16px; line-height: 1.5;
+}
+
+.w-full { width: 100%; }

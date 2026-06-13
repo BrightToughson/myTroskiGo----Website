@@ -3,6 +3,7 @@ import './App.css';
 import { Bus, Map, Smartphone, Menu, X, Search, User, ChevronRight, Home, Bell, Clock, MessageSquare, Heart } from 'lucide-react';
 import logoImg from './images/mytroskigo.png';
 import heroBg from './images/mytroski_background.jpg';
+import { supabase } from './supabaseClient';
 
 const PhoneMockup = () => {
   return (
@@ -89,7 +90,46 @@ const PhoneMockup = () => {
 export default function App() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showIOSModal, setShowIOSModal] = useState(false);
+  const [pulseIndex, setPulseIndex] = useState(0);
+  const [pulseNews, setPulseNews] = useState([
+    { type: 'LIVE UPDATE', text: 'Heavy traffic building at Kaneshie due to roadworks. Delay ~25 mins.', typeColor: '#EF4444', url: '' },
+    { type: 'COMMUNITY ALERT', text: 'GPRTU announces 20% increase in transport fares starting tomorrow.', typeColor: '#FBBF24', url: '' },
+    { type: 'NEW ROUTE', text: 'New trotro station opened at Madina Zongo Junction. Routes active.', typeColor: '#3B82F6', url: '' }
+  ]);
 
+  useEffect(() => {
+    const fetchPulses = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('city_pulses')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(3);
+
+        if (!error && data && data.length > 0) {
+          const mappedData = data.map((item: any) => ({
+            type: item.tag?.toUpperCase() || 'LIVE UPDATE',
+            text: item.title,
+            typeColor: item.color || '#EF4444',
+            url: item.url || ''
+          }));
+          setPulseNews(mappedData);
+        }
+      } catch (e) {
+        console.error('Error fetching pulses:', e);
+      }
+    };
+    fetchPulses();
+  }, []);
+
+  useEffect(() => {
+    if (pulseNews.length === 0) return;
+    const timer = setInterval(() => {
+      setPulseIndex((prev) => (prev + 1) % pulseNews.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [pulseNews]);
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth > 768);
     window.addEventListener('resize', handleResize);
@@ -116,7 +156,7 @@ export default function App() {
 
           {isDesktop ? (
             <nav className="nav-links">
-              <span className="nav-link">Okada Fares</span>
+              <span className="nav-link">Trotro Fares</span>
               <span className="nav-link">Community</span>
               <span className="nav-link" onClick={onDownloadApk} style={{cursor: 'pointer'}}>Download</span>
             </nav>
@@ -132,32 +172,47 @@ export default function App() {
         </div>
       </header>
 
+      {/* MOBILE MENU */}
+      {!isDesktop && menuOpen && (
+        <div className="mobile-menu">
+          <nav className="mobile-nav-links">
+            <span className="mobile-nav-link" onClick={() => setMenuOpen(false)}>Trotro Fares</span>
+            <span className="mobile-nav-link" onClick={() => setMenuOpen(false)}>Community</span>
+            <span className="mobile-nav-link" onClick={() => { onDownloadApk(); setMenuOpen(false); }}>Download</span>
+            <button className="btn-primary large" style={{marginTop: '20px'}} onClick={() => { onStartApp(); setMenuOpen(false); }}>Start App</button>
+          </nav>
+        </div>
+      )}
+
       {/* HERO SECTION */}
       <section className="hero" style={{ backgroundImage: `url(${heroBg})` }}>
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <div className="hero-text-content">
+            <div className="hero-badge">
+              <div className="hero-badge-dot"></div>
+              <span>THE SMARTER WAY TO RIDE 🚀</span>
+            </div>
             <h1 className="hero-title">
-              Know Your<br/>
-              <span className="text-yellow">Fare.</span><br/>
-              Skip the <span className="text-yellow underline">Queue.</span>
+              Your Fare, <span className="text-yellow">Upfront.</span><br/>
+              Your Ride, <span className="text-yellow">Faster.</span>
             </h1>
             <p className="hero-subtitle">
-              Live fares, instant queue alerts, station updates — crowdsourced by commuters like you. Save time, skip the long queues, avoid overcharges.
+              Use myTroski Go, and know your fare before you go! Get live queue alerts and traffic updates — powered by everyday commuters. Take the guesswork out of your journey.
             </p>
             <div className="hero-buttons">
-              <button className="store-btn apple" onClick={onStartApp}>
+              <button className="store-btn apple" onClick={() => setShowIOSModal(true)}>
                 <svg viewBox="0 0 384 512" width="24" height="24" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
                 <div className="store-text">
-                  <span className="store-small">Download on the</span>
-                  <span className="store-large">App Store</span>
+                  <span className="store-small">iPhone users</span>
+                  <span className="store-large" style={{fontSize: '14px'}}>Add to Home Screen</span>
                 </div>
               </button>
               <button className="store-btn google" onClick={onDownloadApk}>
                 <svg viewBox="0 0 512 512" width="24" height="24" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
                 <div className="store-text">
-                  <span className="store-small">GET IT ON</span>
-                  <span className="store-large">Google Play</span>
+                  <span className="store-small">Download direct</span>
+                  <span className="store-large">Android APK</span>
                 </div>
               </button>
             </div>
@@ -179,11 +234,23 @@ export default function App() {
             <span>CITY PULSE</span>
           </div>
           <div className="pulse-divider"></div>
-          <p className="pulse-headline">
-            <span className="pulse-update">LIVE UPDATE: </span>
-            Heavy traffic building at Kaneshie due to roadworks. Delay ~25 mins.
+          <p className="pulse-headline" key={pulseIndex}>
+            <span className="pulse-update" style={{ color: pulseNews[pulseIndex].typeColor }}>{pulseNews[pulseIndex].type}: </span>
+            {pulseNews[pulseIndex].text}
           </p>
-          <button className="pulse-read-more">Read more →</button>
+          <button 
+            className="pulse-read-more"
+            onClick={() => {
+              const url = pulseNews[pulseIndex].url;
+              if (url) {
+                window.open(url, '_blank');
+              } else {
+                onStartApp();
+              }
+            }}
+          >
+            Read more →
+          </button>
         </div>
       </div>
 
@@ -202,7 +269,7 @@ export default function App() {
           </div>
           <div className="bento-card outline-card">
             <Smartphone size={32} color="#F9FAFB" />
-            <h3 className="bento-title">Okada</h3>
+            <h3 className="bento-title">Trotro</h3>
             <p className="bento-desc">Standard Fares</p>
           </div>
           <div className="bento-card dark-card">
@@ -278,7 +345,7 @@ export default function App() {
           <div className="footer-links">
             <div className="link-col">
               <h4>PRODUCT</h4>
-              <p>Okada Fares</p>
+              <p>Trotro Fares</p>
               <p>Trotro Routes</p>
               <p>Live Map</p>
             </div>
@@ -299,6 +366,24 @@ export default function App() {
           <p>© 2026 myTroski Go. All rights reserved.</p>
         </div>
       </footer>
+
+      {/* iOS Install Modal */}
+      {showIOSModal && (
+        <div className="modal-overlay" onClick={() => setShowIOSModal(false)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setShowIOSModal(false)}>
+              <X size={24} color="#64748B" />
+            </button>
+            <h3 className="modal-title">Install on iPhone</h3>
+            <div className="modal-steps">
+              <p><strong>1.</strong> Launch the Web App by clicking the button below.</p>
+              <p><strong>2.</strong> Once in the Web App, tap the <strong>Share</strong> icon <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign: 'middle', display: 'inline'}}><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg> at the bottom of your Safari browser.</p>
+              <p><strong>3.</strong> Scroll down and select <strong>Add to Home Screen</strong> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign: 'middle', display: 'inline'}}><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>.</p>
+            </div>
+            <button className="btn-primary w-full" style={{marginTop: '20px'}} onClick={onStartApp}>Go to Web App</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
