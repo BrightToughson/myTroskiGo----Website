@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { Shield, Lock, MapPin } from 'lucide-react';
 import '../App.css';
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -10,7 +11,7 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0 }
 };

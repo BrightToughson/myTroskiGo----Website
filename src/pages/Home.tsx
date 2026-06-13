@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Bus, Map, Smartphone, Menu, Search, User, ChevronRight, Home as HomeIcon, Bell, Clock, MessageSquare, Heart } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import heroBg from '../images/mytroski_background.jpg';
 import { supabase } from '../supabaseClient';
 import '../App.css';
@@ -136,7 +137,7 @@ export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any
     return () => clearInterval(timer);
   }, [pulseNews]);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -144,7 +145,7 @@ export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
   };
