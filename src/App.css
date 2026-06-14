@@ -499,7 +499,7 @@ body {
 
 .light-scroll-content {
   height: 100%;
-  overflow-y: auto;
+  overflow-y: hidden;
   padding-bottom: 90px;
   scrollbar-width: none;
 }
