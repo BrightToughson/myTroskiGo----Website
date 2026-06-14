@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Bus, Map, Smartphone, Menu, Search, User, ChevronRight, Home as HomeIcon, Bell, Clock, MessageSquare, Heart } from 'lucide-react';
+import { Map, Menu, Search, User, ChevronRight, Home as HomeIcon, Bell, Clock, MessageSquare, Heart, Wallet, AlertTriangle, Users, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import heroBg from '../images/mytroski_background.jpg';
@@ -89,7 +89,7 @@ const PhoneMockup = () => {
 };
 
 // Words for staggered animation
-const titleWords = ["Your", "Fare,", "Upfront.", "Your", "Ride,", "Faster."];
+const titleWords = ["Know", "Your", "Fare", "Before", "You", "Go."];
 
 export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any) {
   const [pulseIndex, setPulseIndex] = useState(0);
@@ -101,7 +101,6 @@ export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any
 
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 1000], [0, 300]); // Parallax for background
-  const opacityHero = useTransform(scrollY, [0, 400], [1, 0]); // Fade out text on scroll
   const scaleMockup = useTransform(scrollY, [0, 400], [1, 0.95]); // Subtle shrink
 
   useEffect(() => {
@@ -110,8 +109,7 @@ export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any
         const { data, error } = await supabase
           .from('city_pulses')
           .select('*')
-          .order('created_at', { ascending: false })
-          .limit(3);
+          .order('created_at', { ascending: false });
 
         if (!error && data && data.length > 0) {
           const mappedData = data.map((item: any) => ({
@@ -170,7 +168,6 @@ export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any
         <div className="hero-content" style={{ zIndex: 2, position: 'relative' }}>
           <motion.div 
             className="hero-text-content"
-            style={{ opacity: opacityHero }}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -206,8 +203,19 @@ export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
             >
-              Use myTroski Go, and know your fare before you go! Get live queue alerts and traffic updates — powered by everyday commuters. Take the guesswork out of your journey.
+              No guessing. No overpaying. No wasted time. Get accurate fares and queue alerts powered by commuters across Ghana.
             </motion.p>
+            <motion.div
+              className="hero-bullets"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.1 }}
+              style={{ display: 'flex', gap: '16px', marginTop: '16px', marginBottom: '32px', flexWrap: 'wrap', color: '#E2E8F0', fontWeight: 500, fontSize: '0.9rem' }}
+            >
+              <span style={{display: 'flex', alignItems: 'center', gap: '6px'}}><CheckCircle size={16} color="#10B981" /> Know the fare</span>
+              <span style={{display: 'flex', alignItems: 'center', gap: '6px'}}><CheckCircle size={16} color="#10B981" /> Find your station</span>
+              <span style={{display: 'flex', alignItems: 'center', gap: '6px'}}><CheckCircle size={16} color="#10B981" /> Skip the queues</span>
+            </motion.div>
             <motion.div 
               className="hero-buttons"
               initial={{ opacity: 0, y: 20 }}
@@ -231,7 +239,7 @@ export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any
             </motion.div>
             <motion.div 
               className="hero-buttons" 
-              style={{marginTop: '20px'}}
+              style={{marginTop: '32px'}}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.3, type: "spring", stiffness: 120 }}
@@ -260,47 +268,49 @@ export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any
         </div>
       </section>
 
-      {/* CITY PULSE NEWS */}
-      <div className="city-pulse">
-        <motion.div 
-          className="pulse-inner"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-50px" }}
-          transition={{ type: "spring", stiffness: 100 }}
-        >
-          <div className="pulse-badge">
-            <div className="pulse-dot"></div>
-            <span>CITY PULSE</span>
-          </div>
-          <div className="pulse-divider"></div>
-          <AnimatePresence mode="wait">
-            <motion.p 
-              className="pulse-headline" 
-              key={pulseIndex}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.4 }}
-            >
-              <span className="pulse-update" style={{ color: pulseNews[pulseIndex]?.typeColor }}>{pulseNews[pulseIndex]?.type}: </span>
-              {pulseNews[pulseIndex]?.text}
-            </motion.p>
-          </AnimatePresence>
-          <button 
-            className="pulse-read-more"
-            onClick={() => {
-              const url = pulseNews[pulseIndex]?.url;
-              if (url) {
-                window.open(url, '_blank');
-              } else {
-                onStartApp();
-              }
-            }}
+      {/* TRANSIT UPDATES */}
+      <div className="city-pulse-wrapper">
+        <div className="city-pulse">
+          <motion.div 
+            className="pulse-inner"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: "-50px" }}
+            transition={{ type: "spring", stiffness: 100 }}
           >
-            Read more →
-          </button>
-        </motion.div>
+            <div className="pulse-badge">
+              <div className="pulse-dot"></div>
+              <span>TRANSIT UPDATES</span>
+            </div>
+            <div className="pulse-divider"></div>
+            <AnimatePresence mode="wait">
+              <motion.p 
+                className="pulse-headline" 
+                key={pulseIndex}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.4 }}
+              >
+                <span className="pulse-update" style={{ color: pulseNews[pulseIndex]?.typeColor }}>{pulseNews[pulseIndex]?.type}: </span>
+                {pulseNews[pulseIndex]?.text}
+              </motion.p>
+            </AnimatePresence>
+            <button 
+              className="pulse-read-more"
+              onClick={() => {
+                const url = pulseNews[pulseIndex]?.url;
+                if (url) {
+                  window.open(url, '_blank');
+                } else {
+                  onStartApp();
+                }
+              }}
+            >
+              Read more →
+            </button>
+          </motion.div>
+        </div>
       </div>
 
       {/* STATS BENTO GRID */}
@@ -313,57 +323,50 @@ export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any
           viewport={{ once: false, margin: "-100px" }}
         >
           <motion.div variants={itemVariants} whileHover={{ scale: 1.02, y: -5, transition: { type: "spring" } }} className="bento-card span-2 dark-card">
-            <Map size={48} color="#FBBF24" />
-            <h3 className="bento-title">Multi-Hop Routes</h3>
-            <p className="bento-desc">Calculate combined fares for trips requiring multiple connections across the city.</p>
+            <Wallet size={48} color="#FBBF24" />
+            <h3 className="bento-title">Fare Estimator</h3>
+            <p className="bento-desc">Know Before You Board. Plan better. Spend smarter. Travel confidently. See estimated transport fares before you start your journey.</p>
           </motion.div>
           <motion.div variants={itemVariants} whileHover={{ scale: 1.02, y: -5, transition: { type: "spring" } }} className="bento-card gold-card">
-            <Bus size={32} color="#111827" />
-            <h3 className="bento-title text-dark">500+</h3>
-            <p className="bento-desc text-dark">Active Routes</p>
+            <Map size={32} color="#111827" />
+            <h3 className="bento-title text-dark" style={{fontSize: '20px'}}>Station Directory</h3>
+            <p className="bento-desc text-dark">Find nearby stops instantly.</p>
           </motion.div>
           <motion.div variants={itemVariants} whileHover={{ scale: 1.02, y: -5, transition: { type: "spring" } }} className="bento-card outline-card">
-            <Smartphone size={32} color="#F9FAFB" />
-            <h3 className="bento-title">Trotro</h3>
-            <p className="bento-desc">Standard Fares</p>
+            <AlertTriangle size={32} color="#F9FAFB" />
+            <h3 className="bento-title" style={{fontSize: '20px'}}>Queue Alerts</h3>
+            <p className="bento-desc">Long Queue? Not Today.</p>
           </motion.div>
           <motion.div variants={itemVariants} whileHover={{ scale: 1.02, y: -5, transition: { type: "spring" } }} className="bento-card dark-card">
-            <h3 className="bento-title">Live</h3>
-            <p className="bento-desc">Activity Map</p>
+            <Map size={32} color="#FBBF24" />
+            <h3 className="bento-title" style={{fontSize: '20px'}}>Route Planning</h3>
+            <p className="bento-desc">Know. Decide. Move.</p>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* GAMIFICATION */}
-      <section className="section bg-darker">
-        <div className="gamification-card">
-          <motion.div 
-            className="g-content"
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
-            transition={{ type: "spring", stiffness: 80 }}
-          >
-            <h2 className="g-title">Report & Earn Points</h2>
-            <p className="g-desc">Help the community by reporting traffic, fare changes, and long queues. Earn points and unlock badges!</p>
-            <div className="badge-row">
-              <motion.span whileHover={{ scale: 1.1 }} className="badge gold">🏆 Commuter Hero</motion.span>
-              <motion.span whileHover={{ scale: 1.1 }} className="badge silver">⭐ Active Scout</motion.span>
-            </div>
-          </motion.div>
-          <motion.div 
-            className="g-mockup"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: false, margin: "-100px" }}
-            transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
-          >
-            <div className="mockup-alert">
-              <span className="alert-pts">+50 pts</span>
-              <span>Kaneshie traffic reported!</span>
-            </div>
-          </motion.div>
-        </div>
+
+
+      {/* COMMUNITY SECTION */}
+      <section className="section">
+        <motion.div 
+          className="community-banner"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-50px" }}
+          transition={{ type: "spring", stiffness: 100 }}
+          style={{ background: 'var(--accent-bg)', padding: '40px', borderRadius: '24px', textAlign: 'center', border: '1px solid var(--accent-border)' }}
+        >
+          <Users size={48} color="var(--accent)" style={{ margin: '0 auto 20px' }} />
+          <h2 className="section-title" style={{ marginBottom: '16px' }}>Community Section</h2>
+          <p style={{ fontSize: '1.2rem', fontWeight: 500, color: 'var(--text-h)', marginBottom: '8px' }}>Powered by Ghanaian Commuters.</p>
+          <p style={{ fontSize: '1.1rem', color: 'var(--text)', marginBottom: '16px' }}>Built by Commuters. Powered by Commuters.</p>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', flexWrap: 'wrap', fontWeight: 600, color: 'var(--accent)' }}>
+            <span>More reports.</span>
+            <span>Better insights.</span>
+            <span>Smarter journeys.</span>
+          </div>
+        </motion.div>
       </section>
 
       {/* HOW IT WORKS */}
@@ -378,18 +381,18 @@ export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any
         >
           <motion.div variants={itemVariants} whileHover={{ scale: 1.05, y: -10, transition: { type: "spring" } }} className="step-card">
             <div className="step-badge">1</div>
-            <h3 className="step-title">Search Route</h3>
-            <p className="step-desc">Enter your starting point and destination to find the best available routes.</p>
+            <h3 className="step-title">Search Your Route</h3>
+            <p className="step-desc">Enter where you're going.</p>
           </motion.div>
           <motion.div variants={itemVariants} whileHover={{ scale: 1.05, y: -10, transition: { type: "spring" } }} className="step-card">
             <div className="step-badge">2</div>
-            <h3 className="step-title">Check Fares</h3>
-            <p className="step-desc">See the exact crowdsourced fare so you never get overcharged.</p>
+            <h3 className="step-title">Get Live Insights</h3>
+            <p className="step-desc">View accurate fares and queue updates instantly.</p>
           </motion.div>
           <motion.div variants={itemVariants} whileHover={{ scale: 1.05, y: -10, transition: { type: "spring" } }} className="step-card">
             <div className="step-badge">3</div>
-            <h3 className="step-title">Move Smart</h3>
-            <p className="step-desc">Check the live pulse map for traffic or queue updates before you head out.</p>
+            <h3 className="step-title">Travel Smarter</h3>
+            <p className="step-desc">Make informed decisions and enjoy a smoother journey.</p>
           </motion.div>
         </motion.div>
       </section>
@@ -404,10 +407,10 @@ export default function Home({ onStartApp, onDownloadApk, setShowIOSModal }: any
           transition={{ type: "spring", stiffness: 100 }}
         >
           <div>
-            <h2 className="cta-title">Ready to Move?</h2>
-            <p className="cta-subtitle">Join 10,000+ Ghanaians moving smart. Launch myTroski Go today and forget transport stress.</p>
+            <h2 className="cta-title">Ready to Move Smarter?</h2>
+            <p className="cta-subtitle">Know the fare. Find your station. Skip the stress. Join thousands of Ghanaians making every trip easier with myTroski Go.</p>
           </div>
-          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-dark" onClick={onStartApp}>Launch Web App →</motion.button>
+          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-dark" onClick={onStartApp}>Launch myTroski Go →</motion.button>
         </motion.div>
       </section>
     </motion.div>
