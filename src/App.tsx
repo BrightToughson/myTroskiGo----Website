@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import logoImg from './images/mytroskigo.png';
+import logoImg from './assets/images/mytroskigo.png';
 import Home from './pages/Home';
 import About from './pages/About';
 import Privacy from './pages/Privacy';
