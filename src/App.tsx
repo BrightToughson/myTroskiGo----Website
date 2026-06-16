@@ -3,6 +3,7 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import logoImg from './assets/images/mytroskigo.png';
+import splashImg from './assets/images/mytroskigo_splashscreen.png';
 import Home from './pages/Home';
 import About from './pages/About';
 import Privacy from './pages/Privacy';
@@ -55,7 +56,7 @@ export default function App() {
                   transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
                 >
                   <img 
-                    src={logoImg} 
+                    src={splashImg} 
                     alt="myTroski Go Logo" 
                     style={{ width: 120, height: 120, borderRadius: 30, boxShadow: '0 10px 30px rgba(251, 191, 36, 0.2)' }} 
                   />
