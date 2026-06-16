@@ -58,7 +58,7 @@ export default function App() {
                   <img 
                     src={splashImg} 
                     alt="myTroski Go Logo" 
-                    style={{ width: 120, height: 120, borderRadius: 30, boxShadow: '0 10px 30px rgba(251, 191, 36, 0.2)' }} 
+                    style={{ width: 200, height: 200, objectFit: 'contain', borderRadius: 40, boxShadow: '0 10px 30px rgba(251, 191, 36, 0.2)' }} 
                   />
                 </motion.div>
                 
