@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Map, Menu, Search, User, ChevronRight, Home as HomeIcon, Bell, Clock, MessageSquare, Heart, Wallet, AlertTriangle, Users, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import heroBg from '../assets/images/mytroski_background.jpg';
+import heroBg from '../assets/images/mytroski_background.webp';
 import { supabase } from '../supabaseClient';
 import '../App.css';
 
