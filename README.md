@@ -1,73 +1,76 @@
-# React + TypeScript + Vite
+# myTroski Go Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Official website for myTroski Go - a smart transit app for Ghana that helps commuters know their fares, skip queues, and avoid getting overcharged.
 
-Currently, two official plugins are available:
+## 🚀 About myTroski Go
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+myTroski Go is a crowdsourced transit data platform designed specifically for Ghana's public transportation system. The app provides:
 
-## React Compiler
+- **Live fare updates** - Know exactly what to pay before you board
+- **Route planning** - Multi-hop directions with combined fare calculations
+- **Community alerts** - Real-time updates on traffic, delays, and price changes
+- **City pulse** - Stay informed with the latest transit news and updates
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🌐 Website Features
 
-## Expanding the ESLint configuration
+This website serves as the landing page and informational hub for myTroski Go:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Responsive design** - Works seamlessly on desktop and mobile devices
+- **Modern animations** - Smooth transitions using Framer Motion
+- **Live updates** - Real-time city pulse data from Supabase
+- **Download options** - Direct links to Android APK and web app
+- **iOS instructions** - Step-by-step guide for iPhone users
+- **Informative pages** - About, Contact, and Privacy Policy sections
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **React 19** - Latest React with concurrent features
+- **TypeScript** - Type-safe development
+- **Vite** - Fast build tool and dev server
+- **Framer Motion** - Production-ready animation library
+- **React Router** - Client-side routing
+- **Supabase** - Backend and real-time database
+- **Lucide React** - Beautiful icon library
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📦 Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🔧 Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the root directory:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+## 🚀 Deployment
+
+The website is deployed and can be accessed at: `https://mytroski-go.online` (replace with actual URL)
+
+## 📱 Mobile App
+
+The main myTroski Go mobile app is built with React Native and available for:
+- **Android**: Download APK from the website
+- **iOS**: Install as a web app (instructions provided on website)
+
+## 🤝 Contributing
+
+This is the official website for myTroski Go. For contributing to the main app or reporting issues, please visit the main repository.
+
+## 📄 License
+
+Copyright © 2026 myTroski Go. All rights reserved.

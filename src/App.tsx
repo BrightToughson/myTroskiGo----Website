@@ -74,14 +74,6 @@ export default function App() {
               </div>
 
               <div className="mobile-splash-footer">
-                <div className="mobile-splash-loader-track">
-                  <motion.div 
-                    className="mobile-splash-loader-fill"
-                    initial={{ width: 0 }}
-                    animate={{ width: "100%" }}
-                    transition={{ duration: 6, ease: "easeInOut" }}
-                  />
-                </div>
               </div>
             </motion.div>
           )}
